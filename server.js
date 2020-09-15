@@ -23,18 +23,12 @@ function handleQuery(req, res) {
     const { genre, country, avg_vote } = req.query;
     let results = [...movies];
     if (genre) {
-        let reqGenre = jsUcfirst(genre);
         results = results.filter((x) => {
-            x.genre === reqGenre
+            return x.genre.toLowerCase().includes(genre.toLowerCase())
         });
     }
     res.send(results);
 }
-
-function jsUcfirst(string) {
-    string = string.toLowerCase();
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
 
 app.get('/movie', handleQuery)
 
